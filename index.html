@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA ENEMIL - Plantilla Limpia</title>
+    <!-- Carga de Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de la fuente Inter --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados: Colores y Fuente */
+        :root {
+            --color-primary: #852C2D; /* Rojo Oscuro / Borgoña */
+            --color-secondary: #F59E0B; /* Ámbar Vibrante */
+            --color-text: #1F2937; /* Gris Oscuro */
+            --color-dark-orange: #D97706; /* Naranja Oscuro para fondo */
+            --color-light-bg: #FFEAD9; /* Tono muy claro para contraste */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Aplicar el naranja oscuro al fondo del cuerpo */
+            background-color: var(--color-dark-orange);
+            color: #1F2937;
+        }
+        .header-bg {
+            background-color: var(--color-primary);
+        }
+        .text-primary { /* Nueva clase para usar el color principal */
+            color: var(--color-primary);
+        }
+        .text-accent {
+            color: var(--color-secondary);
+        }
+        .bg-accent-light {
+             background-color: #FCD34D; /* Amarillo claro */
+        }
+        /* Clase personalizada para el fondo del body/secciones */
+        .bg-dark-orange { 
+            background-color: var(--color-dark-orange);
+        }
+        /* Color de fondo para la sección de favoritos (ahora es una imagen) */
+        .bg-cream-light {
+            background-color: var(--color-light-bg); /* Mantenido como fallback */
+        }
+        
+        /* Estilos del Carrusel */
+        .carousel-container {
+            max-width: 100vw;
+            overflow: hidden;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+            height: 50vh; /* Altura responsiva para móvil */
+        }
+
+        /* Ajuste de altura para escritorio */
+        @media (min-width: 768px) {
+            .carousel-item {
+                height: 70vh;
+            }
+        }
+        /* Garantizar que video e imágenes cubran el espacio */
+        .carousel-item img, .carousel-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Asegurar que el video no exceda la altura máxima definida del carrusel */
+            max-height: 100%; 
+        }
+
+        /* Estilos para la animación de scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Estilo para tarjetas de platillos */
+        .dish-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .dish-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para la imagen de fondo de "Nuestros Favoritos" */
+        #menu-favorites {
+            background-image: url('https://i.imgur.com/W0B6NTL.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efecto Parallax */
+            position: relative; /* Necesario para el overlay */
+        }
+        /* Overlay oscuro para la legibilidad del texto */
+        #menu-favorites::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Ajusta la opacidad según necesites */
+            z-index: 1; /* Asegura que el overlay esté encima de la imagen */
+        }
+        /* Asegura que el contenido esté por encima del overlay */
+        #menu-favorites .container {
+            position: relative;
+            z-index: 2;
+        }
+        /* Asegura que el texto en la sección sea blanco o claro */
+        #menu-favorites h2, 
+        #menu-favorites a { 
+            color: white; 
+        }
+        #menu-favorites h2 .text-accent {
+             color: var(--color-secondary); /* Mantiene el color ámbar para la parte resaltada del título */
+        }
+        /* Estilos para el nuevo enlace (simulando un botón) */
+        .btn-menu {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 9999px; /* rounded-full */
+            font-size: 1.125rem; /* text-lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            transition: all 0.3s ease-in-out;
+            text-decoration: none; /* Quitar el subrayado por defecto del enlace */
+        }
+        .btn-menu:hover {
+            background-color: #4C1D1F; /* Rojo Oscuro más intenso (hover:bg-red-900) */
+            transform: scale(1.05); /* transform hover:scale-105 */
+        }
+
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <main>
+        <!-- SECCIÓN DE INICIO / CARRUSEL --><section id="inicio" class="relative carousel-container">
+            <div class="carousel-track" id="carousel-track">
+                <!-- ÍTEM 1: Video --><div class="carousel-item relative">
+                    <video src="https://i.imgur.com/9vZqhcb.mp4" loop muted playsinline></video>
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4">
+                        <h1 class="text-white text-5xl md:text-7xl font-black text-center drop-shadow-lg">¡El Sabor de la Ciudad!</h1>
+                    </div>
+                </div>
+                <!-- ÍTEM 2: Imagen 1 --><div class="carousel-item relative">
+                    <img src="https://i.imgur.com/uZ5P2qS.jpeg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
+                    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+                </div>
+                <!-- ÍTEM 3: Imagen 2 --><div class="carousel-item relative">
+                    <img src="https://i.imgur.com/lV4OiP0.jpeg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
+                    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+                </div>
+                <!-- ÍTEM 4: Imagen 3 --><div class="carousel-item relative">
+                    <img src="https://i.imgur.com/JvKK7Tg.jpeg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
+                    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+                </div>
+            </div>
+
+            <!-- Controles del Carrusel --><button onclick="moveCarousel(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition duration-300 z-10">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button onclick="moveCarousel(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition duration-300 z-10">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Indicadores --><div id="carousel-indicators" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                <!-- Los indicadores se añadirán con JavaScript --></div>
+        </section>
+
+        <!-- SECCIÓN PERSUASIVA PRINCIPAL --><section id="persuasion" class="py-12 md:py-20 bg-dark-orange shadow-xl rounded-t-none relative z-10">
+            <div class="container mx-auto px-6 max-w-5xl text-center text-white">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 header-bg inline-block text-white px-6 py-2 rounded-xl shadow-lg transform rotate-[-2deg]">
+                    El Sabor Único de la Capital
+                </h2>
+                <p class="text-xl md:text-2xl mb-6 font-semibold text-white">
+                    La Ciudad de México no solo es historia y modernidad; es, ante todo, un festival culinario sin igual.
+                </p>
+                <p class="text-lg leading-relaxed text-gray-200">
+                    En **LA ENEMIL**, capturamos ese espíritu: la audacia de los **tacos al pastor**, la sofisticación del **huitlacoche**, y la calidez de un **pozole** hecho con receta familiar. Olvídate de lo ordinario. Nuestra comida es ruidosa, colorida, y adictiva, tal como la ciudad que la inspira. Cada mordida es un viaje a las esquinas más sabrosas de la CDMX.
+                </p>
+            </div>
+        </section>
+        <!-- SECCIÓN DE IMAGEN CON ANIMACIÓN SCROLL-TRIGGERED --><section id="animated-image-section" class="py-6 md:py-8 bg-dark-orange relative z-10 overflow-hidden">
+            <!-- La imagen es full width --><img src="https://i.imgur.com/JSA60ta.jpeg" alt="Platillo de la Ciudad de México" 
+                 class="w-full h-auto object-cover shadow-2xl fade-in-up">
+        </section>
+        <!-- NUEVA SECCIÓN: TEXTO PERSUASIVO SECUNDARIO --><section id="secondary-persuasion" class="py-10 bg-dark-orange relative z-10">
+            <div class="container mx-auto px-6 max-w-3xl text-center text-white">
+                <p class="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                    Prepara tus sentidos para una experiencia que va más allá del paladar.
+                    <!-- Se cambió text-accent (ámbar) por text-primary (rojo borgoña) --><span class="block mt-2 text-primary">¡Esto es **LA ENEMIL**!</span>
+                </p>
+            </div>
+        </section>
+        <!-- SECCIÓN: LOS FAVORITOS DEL MENÚ --><section id="menu-favorites" class="py-16 md:py-24 relative z-10">
+            <div class="container mx-auto px-6">
+                <!-- Título de la sección --><h2 class="text-5xl md:text-6xl font-black text-center mb-12 text-white">
+                    <span class="text-accent">Nuestros</span> Favoritos
+                </h2>
+
+                <!-- Grid de 4 Platillos --><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Platillo 1: Tacos al Pastor --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                        <img src="https://i.imgur.com/mByov6Z.jpeg" alt="Tacos al Pastor" 
+                             class="w-full h-48 object-cover">
+                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                            <h3 class="text-2xl font-black text-white drop-shadow-xl">Tacos al Pastor</h3>
+                        </div>
+                    </div>
+
+                    <!-- Platillo 2: Pozole Rojo --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                        <img src="https://i.imgur.com/WuYGSRi.jpeg" alt="Pozole Rojo" 
+                             class="w-full h-48 object-cover">
+                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                            <h3 class="text-2xl font-black text-white drop-shadow-xl">Pozole Rojo</h3>
+                        </div>
+                    </div>
+
+                    <!-- Platillo 3: Enchiladas Suizas --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                        <img src="https://i.imgur.com/TNJWS2D.jpeg" alt="Enchiladas Suizas" 
+                             class="w-full h-48 object-cover">
+                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                            <h3 class="text-2xl font-black text-white drop-shadow-xl">Enchiladas Suizas</h3>
+                        </div>
+                    </div>
+
+                    <!-- Platillo 4: Huaraches de Huitlacoche --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                        <img src="https://i.imgur.com/kloYePW.jpeg" alt="Huarache de Huitlacoche" 
+                             class="w-full h-48 object-cover">
+                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                            <h3 class="text-2xl font-black text-white drop-shadow-xl">Huarache de Huitlacoche</h3>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Botón de Acción (Opcional, para el menú completo) -->
+                <div class="text-center mt-12">
+                    <!-- Ahora llama a la función JS openMenuModal() -->
+                    <a href="javascript:void(0)" onclick="openMenuModal()" class="btn-menu">
+                        Ver Menú Completo
+                    </a>
+                </div>
+
+            </div>
+        </section>
+        <!-- FIN SECCIÓN FAVORITOS -->
+
+        <!-- NUEVA SECCIÓN: NUESTRA HISTORIA --><section id="our-history" class="py-16 md:py-24 bg-dark-orange relative z-10">
+            <div class="container mx-auto px-6 max-w-4xl text-white fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-black text-center mb-8 text-white">
+                    <span class="text-accent">Nuestra</span> Historia
+                </h2>
+                <div class="space-y-6 text-lg leading-relaxed">
+                    <p>
+                        LA ENEMIL nació de la nostalgia por los sabores auténticos y el espíritu vibrante de un barrio en el corazón de la CDMX. No somos solo un restaurante; somos un homenaje a las abuelas que cocinan con fuego lento y a los puestos callejeros donde cada taco cuenta una historia.
+                    </p>
+                    <p>
+                        Desde 2015, nuestro compromiso ha sido llevar la verdadera cocina mexicana a la mesa, utilizando solo ingredientes frescos y técnicas tradicionales. Cada receta, desde el mole hasta el agua fresca, es un legado familiar preservado con pasión. Ven y sé parte de esta historia. Somos la tradición, somos el sabor, somos **LA ENEMIL**.
+                    </p>
+                </div>
+                <div class="text-center mt-10">
+                    <a href="#inicio" class="inline-block text-accent hover:text-white transition duration-300 font-semibold border-b-2 border-accent hover:border-white">
+                        Conoce más sobre nuestra filosofía de cocina
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- FIN SECCIÓN HISTORIA -->
+
+    </main>
+    
+    <!-- Modal para el Menú (invisible por defecto) -->
+    <div id="menu-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
+        <!-- Botón de Cerrar (X) -->
+        <button onclick="closeMenuModal()" class="absolute top-4 right-4 text-white text-4xl font-light hover:text-gray-300 transition duration-300 focus:outline-none z-50">
+            &times;
+        </button>
+        <!-- Contenido del Menú -->
+        <div class="max-w-4xl max-h-full overflow-y-auto rounded-lg shadow-2xl bg-white p-4">
+            <!-- La imagen del menú -->
+            <img src="https://i.imgur.com/qi2Y6l1.jpeg" alt="Menú Completo del Restaurante LA ENEMIL" class="w-full h-auto object-contain mb-6">
+            
+            <!-- Botón para volver a la página principal -->
+            <div class="text-center pb-4">
+                <button onclick="closeMenuModal()" class="bg-red-800 text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-red-900 transition duration-300 transform hover:scale-105">
+                    Volver a la Página Principal
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL -->
+
+
+    <!-- LÓGICA DE JAVASCRIPT --><script>
+        // --- Lógica del Carrusel ---
+        const track = document.getElementById('carousel-track');
+        const items = document.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+        let currentIndex = 0;
+        let isInitialLoad = true;
+        let autoPlayInterval;
+        const autoPlayDuration = 4000; // 4 segundos
+        // NUEVA VARIABLE: Rastrea si la sección del carrusel está visible en la pantalla
+        let isCarouselVisible = false;
+
+        function updateCarousel() {
+            // Mueve el track horizontalmente
+            const offset = -currentIndex * 100;
+            track.style.transform = `translateX(${offset}%)`;
+
+            // Actualiza los indicadores
+            const indicators = document.querySelectorAll('#carousel-indicators button');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.remove('bg-accent-light');
+                indicator.classList.add('bg-white/50');
+                if (index === currentIndex) {
+                    indicator.classList.add('bg-accent-light');
+                    indicator.classList.remove('bg-white/50');
+                }
+            });
+
+            // Reproducir/Pausar el video
+            const video = items[0].querySelector('video');
+
+            // 1. Si es la carga inicial, pausa el video.
+            if (isInitialLoad && video) {
+                video.pause();
+                isInitialLoad = false;
+            }
+            
+            // 2. Lógica de reproducción: SOLO reproducir si el carrusel es visible Y es el slide del video
+            if (currentIndex === 0 && video && isCarouselVisible) { 
+                video.currentTime = 0;
+                // El video solo se reproduce si está visible (slide 0)
+                video.play().catch(e => console.log("Video autoplay blocked:", e));
+            } else if (video) {
+                // Pausar si no es el primer ítem o si no es visible
+                video.pause();
+            }
+        }
+
+        function moveCarousel(direction) {
+            currentIndex = (currentIndex + direction + totalItems) % totalItems;
+            updateCarousel();
+            // No se llama a resetAutoPlay aquí, ya que el Intersection Observer lo maneja
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+            // No se llama a resetAutoPlay aquí, ya que el Intersection Observer lo maneja
+        }
+
+        // Función para detener el carrusel
+        function stopAutoPlay() { 
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+
+        // Función para iniciar el carrusel
+        function startAutoPlay() {
+            // Solo iniciar si es visible y no está corriendo
+            if (!isCarouselVisible || autoPlayInterval) return; 
+
+            autoPlayInterval = setInterval(() => {
+                // Mover el carrusel, y luego asegurarse de que el video se maneje correctamente
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarousel(); 
+            }, autoPlayDuration);
+        }
+        
+        // --- NUEVA LÓGICA: DETECTAR VISIBILIDAD DE LA SECCIÓN ---
+        const carouselSection = document.getElementById('inicio');
+
+        const carouselObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isCarouselVisible = entry.isIntersecting;
+                
+                if (isCarouselVisible) {
+                    // El carrusel ha entrado en la vista: Iniciar el auto-play y actualizar el estado (ej. video)
+                    startAutoPlay();
+                    updateCarousel(); 
+                } else {
+                    // El carrusel ha salido de la vista: Detener todo
+                    stopAutoPlay();
+                    const video = items[0].querySelector('video');
+                    if (video) video.pause();
+                }
+            });
+        }, {
+            threshold: 0.01 // Se activa en cuanto el 1% del elemento es visible
+        });
+
+        // Generar Indicadores
+        const indicatorsContainer = document.getElementById('carousel-indicators');
+        for (let i = 0; i < totalItems; i++) {
+            const button = document.createElement('button');
+            button.classList.add('w-3', 'h-3', 'rounded-full', 'mx-1', 'transition', 'duration-300', 'focus:outline-none');
+            button.onclick = () => goToSlide(i);
+            indicatorsContainer.appendChild(button);
+        }
+        
+        window.onload = function() {
+            // 1. Inicializar el carrusel visualmente (pausado inicialmente por isInitialLoad)
+            updateCarousel(); 
+            // 2. Inicia el observador. El observador se encargará de llamar a startAutoPlay cuando sea visible.
+            carouselObserver.observe(carouselSection);
+        };
+        
+        // --- Lógica para la animación de scroll (se mantiene) ---
+        const animateOnScrollElements = document.querySelectorAll('.fade-in-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                } else {
+                    // Opcional: Remover la clase si sale de la vista para que se pueda animar de nuevo
+                    entry.target.classList.remove('animate'); 
+                }
+            });
+        }, {
+            threshold: 0.1 // El 10% del elemento debe estar visible para activar la animación
+        });
+
+        // Aplicar observador a todos los elementos con la clase .fade-in-up
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // --- Lógica del Modal del Menú (se mantiene) ---
+        function openMenuModal() {
+            const modal = document.getElementById('menu-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex'); // Muestra la modal con flexbox
+            document.body.style.overflow = 'hidden'; // Previene el scroll del fondo
+        }
+
+        function closeMenuModal() {
+            const modal = document.getElementById('menu-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex'); // Oculta la modal
+            document.body.style.overflow = ''; // Restaura el scroll
+        }
+
+        // Cierra la modal al presionar Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMenuModal();
+            }
+        });
+
+    </script>
+
+</body>
+</html>

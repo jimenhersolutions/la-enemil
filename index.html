@@ -62,12 +62,11 @@
                 height: 70vh;
             }
         }
-        /* Garantizar que video e imágenes cubran el espacio */
-        .carousel-item img, .carousel-item video {
+        /* Garantizar que imágenes cubran el espacio */
+        .carousel-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Asegurar que el video no exceda la altura máxima definida del carrusel */
             max-height: 100%; 
         }
 
@@ -145,40 +144,51 @@
 <body class="text-gray-900">
 
     <main>
-        <!-- SECCIÓN DE INICIO / CARRUSEL --><section id="inicio" class="relative carousel-container">
+        <!-- SECCIÓN DE INICIO / CARRUSEL -->
+        <section id="inicio" class="relative carousel-container">
             <div class="carousel-track" id="carousel-track">
-                <!-- ÍTEM 1: Video --><div class="carousel-item relative">
-                    <video src="https://i.imgur.com/9vZqhcb.mp4" loop muted playsinline></video>
+                <!-- ÍTEM 1: Nueva Imagen de Inicio (Reemplazo de Video) -->
+                <div class="carousel-item relative">
+                    <img src="https://i.imgur.com/iNeML3F.jpeg" alt="Restaurante LA ENEMIL Interior" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+Principal';"
+                         class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4">
                         <h1 class="text-white text-5xl md:text-7xl font-black text-center drop-shadow-lg">¡El Sabor de la Ciudad!</h1>
                     </div>
                 </div>
-                <!-- ÍTEM 2: Imagen 1 --><div class="carousel-item relative">
-                    <img src="https://i.imgur.com/uZ5P2qS.jpeg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
+                <!-- ÍTEM 2: Imagen 1 (Se mantienen los originales) -->
+                <div class="carousel-item relative">
+                    <img src="https://i.imgur.com/uZ5P2qS.jpeg" alt="Platillo 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
                     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
                 </div>
-                <!-- ÍTEM 3: Imagen 2 --><div class="carousel-item relative">
-                    <img src="https://i.imgur.com/lV4OiP0.jpeg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
+                <!-- ÍTEM 3: Imagen 2 -->
+                <div class="carousel-item relative">
+                    <img src="https://i.imgur.com/lV4OiP0.jpeg" alt="Platillo 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
                     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
                 </div>
-                <!-- ÍTEM 4: Imagen 3 --><div class="carousel-item relative">
-                    <img src="https://i.imgur.com/JvKK7Tg.jpeg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
+                <!-- ÍTEM 4: Imagen 3 -->
+                <div class="carousel-item relative">
+                    <img src="https://i.imgur.com/JvKK7Tg.jpeg" alt="Platillo 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/852C2D/ffffff?text=Imagen+No+Disponible';">
                     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
                 </div>
             </div>
 
-            <!-- Controles del Carrusel --><button onclick="moveCarousel(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition duration-300 z-10">
+            <!-- Controles del Carrusel -->
+            <button onclick="moveCarousel(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition duration-300 z-10">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
             <button onclick="moveCarousel(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition duration-300 z-10">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
 
-            <!-- Indicadores --><div id="carousel-indicators" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                <!-- Los indicadores se añadirán con JavaScript --></div>
+            <!-- Indicadores -->
+            <div id="carousel-indicators" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                <!-- Los indicadores se añadirán con JavaScript -->
+            </div>
         </section>
 
-        <!-- SECCIÓN PERSUASIVA PRINCIPAL --><section id="persuasion" class="py-12 md:py-20 bg-dark-orange shadow-xl rounded-t-none relative z-10">
+        <!-- SECCIÓN PERSUASIVA PRINCIPAL -->
+        <section id="persuasion" class="py-12 md:py-20 bg-dark-orange shadow-xl rounded-t-none relative z-10">
             <div class="container mx-auto px-6 max-w-5xl text-center text-white">
                 <h2 class="text-4xl md:text-5xl font-black mb-6 header-bg inline-block text-white px-6 py-2 rounded-xl shadow-lg transform rotate-[-2deg]">
                     El Sabor Único de la Capital
@@ -191,54 +201,69 @@
                 </p>
             </div>
         </section>
-        <!-- SECCIÓN DE IMAGEN CON ANIMACIÓN SCROLL-TRIGGERED --><section id="animated-image-section" class="py-6 md:py-8 bg-dark-orange relative z-10 overflow-hidden">
-            <!-- La imagen es full width --><img src="https://i.imgur.com/JSA60ta.jpeg" alt="Platillo de la Ciudad de México" 
+        <!-- SECCIÓN DE IMAGEN CON ANIMACIÓN SCROLL-TRIGGERED -->
+        <section id="animated-image-section" class="py-6 md:py-8 bg-dark-orange relative z-10 overflow-hidden">
+            <!-- La imagen es full width -->
+            <img src="https://i.imgur.com/JSA60ta.jpeg" alt="Platillo de la Ciudad de México" 
                  class="w-full h-auto object-cover shadow-2xl fade-in-up">
         </section>
-        <!-- NUEVA SECCIÓN: TEXTO PERSUASIVO SECUNDARIO --><section id="secondary-persuasion" class="py-10 bg-dark-orange relative z-10">
+        <!-- NUEVA SECCIÓN: TEXTO PERSUASIVO SECUNDARIO -->
+        <section id="secondary-persuasion" class="py-10 bg-dark-orange relative z-10">
             <div class="container mx-auto px-6 max-w-3xl text-center text-white">
                 <p class="text-2xl md:text-3xl font-extrabold text-white leading-tight">
                     Prepara tus sentidos para una experiencia que va más allá del paladar.
-                    <!-- Se cambió text-accent (ámbar) por text-primary (rojo borgoña) --><span class="block mt-2 text-primary">¡Esto es **LA ENEMIL**!</span>
+                    <!-- Se cambió text-accent (ámbar) por text-primary (rojo borgoña) -->
+                    <span class="block mt-2 text-primary">¡Esto es **LA ENEMIL**!</span>
                 </p>
             </div>
         </section>
-        <!-- SECCIÓN: LOS FAVORITOS DEL MENÚ --><section id="menu-favorites" class="py-16 md:py-24 relative z-10">
+        <!-- SECCIÓN: LOS FAVORITOS DEL MENÚ -->
+        <section id="menu-favorites" class="py-16 md:py-24 relative z-10">
             <div class="container mx-auto px-6">
-                <!-- Título de la sección --><h2 class="text-5xl md:text-6xl font-black text-center mb-12 text-white">
+                <!-- Título de la sección -->
+                <h2 class="text-5xl md:text-6xl font-black text-center mb-12 text-white">
                     <span class="text-accent">Nuestros</span> Favoritos
                 </h2>
 
-                <!-- Grid de 4 Platillos --><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Grid de 4 Platillos -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     
-                    <!-- Platillo 1: Tacos al Pastor --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                    <!-- Platillo 1: Tacos al Pastor -->
+                    <div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
                         <img src="https://i.imgur.com/mByov6Z.jpeg" alt="Tacos al Pastor" 
                              class="w-full h-48 object-cover">
-                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                        <!-- Nombre centrado y flotando sobre la imagen -->
+                        <div class="absolute inset-0 flex items-center justify-center p-4">
                             <h3 class="text-2xl font-black text-white drop-shadow-xl">Tacos al Pastor</h3>
                         </div>
                     </div>
 
-                    <!-- Platillo 2: Pozole Rojo --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                    <!-- Platillo 2: Pozole Rojo -->
+                    <div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
                         <img src="https://i.imgur.com/WuYGSRi.jpeg" alt="Pozole Rojo" 
                              class="w-full h-48 object-cover">
-                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                        <!-- Nombre centrado y flotando sobre la imagen -->
+                        <div class="absolute inset-0 flex items-center justify-center p-4">
                             <h3 class="text-2xl font-black text-white drop-shadow-xl">Pozole Rojo</h3>
                         </div>
                     </div>
 
-                    <!-- Platillo 3: Enchiladas Suizas --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                    <!-- Platillo 3: Enchiladas Suizas -->
+                    <div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
                         <img src="https://i.imgur.com/TNJWS2D.jpeg" alt="Enchiladas Suizas" 
                              class="w-full h-48 object-cover">
-                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                        <!-- Nombre centrado y flotando sobre la imagen -->
+                        <div class="absolute inset-0 flex items-center justify-center p-4">
                             <h3 class="text-2xl font-black text-white drop-shadow-xl">Enchiladas Suizas</h3>
                         </div>
                     </div>
 
-                    <!-- Platillo 4: Huaraches de Huitlacoche --><div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
+                    <!-- Platillo 4: Huaraches de Huitlacoche -->
+                    <div class="dish-card relative rounded-xl shadow-lg overflow-hidden fade-in-up">
                         <img src="https://i.imgur.com/kloYePW.jpeg" alt="Huarache de Huitlacoche" 
                              class="w-full h-48 object-cover">
-                        <!-- Nombre centrado y flotando sobre la imagen --><div class="absolute inset-0 flex items-center justify-center p-4">
+                        <!-- Nombre centrado y flotando sobre la imagen -->
+                        <div class="absolute inset-0 flex items-center justify-center p-4">
                             <h3 class="text-2xl font-black text-white drop-shadow-xl">Huarache de Huitlacoche</h3>
                         </div>
                     </div>
@@ -257,7 +282,8 @@
         </section>
         <!-- FIN SECCIÓN FAVORITOS -->
 
-        <!-- NUEVA SECCIÓN: NUESTRA HISTORIA --><section id="our-history" class="py-16 md:py-24 bg-dark-orange relative z-10">
+        <!-- NUEVA SECCIÓN: NUESTRA HISTORIA -->
+        <section id="our-history" class="py-16 md:py-24 bg-dark-orange relative z-10">
             <div class="container mx-auto px-6 max-w-4xl text-white fade-in-up">
                 <h2 class="text-4xl md:text-5xl font-black text-center mb-8 text-white">
                     <span class="text-accent">Nuestra</span> Historia
@@ -303,17 +329,15 @@
     <!-- FIN MODAL -->
 
 
-    <!-- LÓGICA DE JAVASCRIPT --><script>
-        // --- Lógica del Carrusel ---
+    <!-- LÓGICA DE JAVASCRIPT -->
+    <script>
+        // --- Lógica del Carrusel (Simplificada) ---
         const track = document.getElementById('carousel-track');
         const items = document.querySelectorAll('.carousel-item');
         const totalItems = items.length;
         let currentIndex = 0;
-        let isInitialLoad = true;
         let autoPlayInterval;
         const autoPlayDuration = 4000; // 4 segundos
-        // NUEVA VARIABLE: Rastrea si la sección del carrusel está visible en la pantalla
-        let isCarouselVisible = false;
 
         function updateCarousel() {
             // Mueve el track horizontalmente
@@ -330,37 +354,19 @@
                     indicator.classList.remove('bg-white/50');
                 }
             });
-
-            // Reproducir/Pausar el video
-            const video = items[0].querySelector('video');
-
-            // 1. Si es la carga inicial, pausa el video.
-            if (isInitialLoad && video) {
-                video.pause();
-                isInitialLoad = false;
-            }
-            
-            // 2. Lógica de reproducción: SOLO reproducir si el carrusel es visible Y es el slide del video
-            if (currentIndex === 0 && video && isCarouselVisible) { 
-                video.currentTime = 0;
-                // El video solo se reproduce si está visible (slide 0)
-                video.play().catch(e => console.log("Video autoplay blocked:", e));
-            } else if (video) {
-                // Pausar si no es el primer ítem o si no es visible
-                video.pause();
-            }
+            // Ya no hay lógica de video/pausa
         }
 
         function moveCarousel(direction) {
             currentIndex = (currentIndex + direction + totalItems) % totalItems;
             updateCarousel();
-            // No se llama a resetAutoPlay aquí, ya que el Intersection Observer lo maneja
+            resetAutoPlay();
         }
 
         function goToSlide(index) {
             currentIndex = index;
             updateCarousel();
-            // No se llama a resetAutoPlay aquí, ya que el Intersection Observer lo maneja
+            resetAutoPlay();
         }
 
         // Función para detener el carrusel
@@ -371,37 +377,17 @@
 
         // Función para iniciar el carrusel
         function startAutoPlay() {
-            // Solo iniciar si es visible y no está corriendo
-            if (!isCarouselVisible || autoPlayInterval) return; 
+            if (autoPlayInterval) stopAutoPlay(); // Asegura que solo hay uno corriendo
 
             autoPlayInterval = setInterval(() => {
-                // Mover el carrusel, y luego asegurarse de que el video se maneje correctamente
-                currentIndex = (currentIndex + 1) % totalItems;
-                updateCarousel(); 
+                moveCarousel(1);
             }, autoPlayDuration);
         }
         
-        // --- NUEVA LÓGICA: DETECTAR VISIBILIDAD DE LA SECCIÓN ---
-        const carouselSection = document.getElementById('inicio');
-
-        const carouselObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                isCarouselVisible = entry.isIntersecting;
-                
-                if (isCarouselVisible) {
-                    // El carrusel ha entrado en la vista: Iniciar el auto-play y actualizar el estado (ej. video)
-                    startAutoPlay();
-                    updateCarousel(); 
-                } else {
-                    // El carrusel ha salido de la vista: Detener todo
-                    stopAutoPlay();
-                    const video = items[0].querySelector('video');
-                    if (video) video.pause();
-                }
-            });
-        }, {
-            threshold: 0.01 // Se activa en cuanto el 1% del elemento es visible
-        });
+        function resetAutoPlay() {
+            stopAutoPlay();
+            startAutoPlay();
+        }
 
         // Generar Indicadores
         const indicatorsContainer = document.getElementById('carousel-indicators');
@@ -413,13 +399,12 @@
         }
         
         window.onload = function() {
-            // 1. Inicializar el carrusel visualmente (pausado inicialmente por isInitialLoad)
+            // Inicializar el carrusel y empezar el auto-play
             updateCarousel(); 
-            // 2. Inicia el observador. El observador se encargará de llamar a startAutoPlay cuando sea visible.
-            carouselObserver.observe(carouselSection);
+            startAutoPlay();
         };
         
-        // --- Lógica para la animación de scroll (se mantiene) ---
+        // --- Lógica para la animación de scroll ---
         const animateOnScrollElements = document.querySelectorAll('.fade-in-up');
 
         const observer = new IntersectionObserver((entries) => {
@@ -440,7 +425,7 @@
             observer.observe(element);
         });
 
-        // --- Lógica del Modal del Menú (se mantiene) ---
+        // --- Lógica del Modal del Menú ---
         function openMenuModal() {
             const modal = document.getElementById('menu-modal');
             modal.classList.remove('hidden');
